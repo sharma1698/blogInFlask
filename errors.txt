@@ -1,0 +1,16 @@
+Error 1:
+* flask db init
+* Ignoring a call to 'app.run()' that would block the current 'flask' CLI command.
+   Only call 'app.run()' in an 'if __name__ == "__main__"' guard.
+
+Ans: Flask CLI (like flask db init, flask run, etc.) loads your app from main.py, and it doesn't want app.run() to execute automatically.
+Wrapping it in if __name__ == "__main__": ensures it only runs when you run the file directly, not when Flask imports it.
+
+Error2:
+ImportError: cannot import name 'db' from partially initialized module 'models' (most likely due to a circular import) (c:\Users\shank\Desktop\PycharmProjects\blogInFlask\models\__init__.py)
+
+Ans: means you're running into a circular import issue — where two files are trying to import each other at the same time, which causes confusion during initialization.
+example define ( from .contact import Contact  # ❌ this causes circular import   ) in models/__init__.py
+You’re importing Contact too early inside models/__init__.py, but Contact is already trying to import db from models.
+
+

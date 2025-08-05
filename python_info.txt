@@ -1,0 +1,15 @@
+* to create SQLAlchemy : python -m  pip install flask-sqlalchemy
+* to use migration of flask : python -m pip install Flask-Migrate
+* use migrate commands :
+    flask db init        # initialize Alembic   : create migration folder
+    flask db migrate  -m "message"   # detect schema changes   : it will create migration table inside migrations/versions
+    flask db upgrade     # apply changes to DB  : create table in mysql database
+
+
+* connected with flask sqlalchemy : 'mysql://username:password@localhost/db_name'
+
+* Alembic is a database migration tool for Python applications that use SQLAlchemy.
+Alembic is like a version control system for your database schema — similar to how Git tracks your code changes, Alembic tracks changes to your database tables and columns over time.
+
+* __init__.py : Marks a folder as a Python package
+and inside this add files name like from myapp import routes
