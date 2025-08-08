@@ -13,4 +13,38 @@ Ans: means you're running into a circular import issue — where two files are t
 example define ( from .contact import Contact  # ❌ this causes circular import   ) in models/__init__.py
 You’re importing Contact too early inside models/__init__.py, but Contact is already trying to import db from models.
 
+Error3:
+RuntimeError: A secret key is required to use CSRF.
 
+Answer: import os
+class Config:
+    SECRET_KEY = os.urandom(24)  # Generates a random secret key
+    SQLALCHEMY_DATABASE_URI = 'mysql://root:root@localhost/flask_blog'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+
+Error4: Exception: Install 'email_validator' for email validation support.
+
+Answer: pip install flask flask-wtf email_validator
+Email() validator in WTForms → calls email_validator to check:
+Proper email format (user@example.com)
+Unicode and internationalized addresses
+Optional DNS checking for domain
+
+
+Error5: jinja2.exceptions.UndefinedError: 'form' is undefined
+   pass form to :    return render_template('contact.html',form=form)
+
+Error6: TypeError: expected string or bytes-like object, got 'int'
+Answer:  the issue is that Regexp validator in WTForms expects the field’s data to be a string,
+but you’re using IntegerField, which gives an int.
+Use StringField + Regexp if you want to allow things like +91 or formatted numbers later.
+
+Error7: sqlalchemy.orm.exc.UnmappedInstanceError: Class 'contact.Contact' is not mapped
+Answer: The reason you still got the UnmappedInstanceError earlier is because you were trying to use the FlaskForm class named Contact in db.session.add() instead of this model.
+Since both were named Contact, Python used the form class, not the model class — and SQLAlchemy complained because that class is not mapped to the database.
+How to Fix
+Rename one of them so that there’s no name clash.
+Keep:
+Contact (model) → for DB operations
+ContactForm (form) → for form validation
