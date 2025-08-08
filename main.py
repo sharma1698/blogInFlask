@@ -7,6 +7,9 @@ from contact_form import *
 
 app = Flask(__name__)
 app.config.from_object(Config)
+@app.context_processor   #to access contact everywhere
+def inject_urls():
+    return {key: app.config[key] for key in ['FB_URL', 'TW_URL', 'GT_URL']}
 
 # Initialize db and migrations
 db.init_app(app)  #initialization

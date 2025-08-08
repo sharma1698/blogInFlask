@@ -13,3 +13,14 @@ Alembic is like a version control system for your database schema — similar to
 
 * __init__.py : Marks a folder as a Python package
 and inside this add files name like from myapp import routes
+
+
+* @app.context_processor
+def inject_urls():
+    return {key: app.config[key] for key in ['FB_URL', 'TW_URL', 'GT_URL']}
+
+context_processor as a global variables provider for Jinja templates.You write it once, and it works everywhere — all templates get the variables without explicitly passing them.
+you donot need to pass the variables manually in every route like below:
+@app.route('/')
+def home():
+    return render_template('index.html', FB_URL=app.config['FB_URL'])
