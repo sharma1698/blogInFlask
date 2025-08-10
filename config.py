@@ -13,3 +13,10 @@ class Config:
     FB_URL = 'https://www.facebook.com/'
     TW_URL = 'https://x.com/i/flow/login'
     GT_URL = 'https://github.com'
+    MAIL_SERVER = 'smtp.gmail.com'
+    MAIL_PORT = 587
+    MAIL_USE_TLS = True
+    MAIL_USE_SSL = False
+    MAIL_USERNAME = 'techcheer1698@gmail.com'   # Your Gmail address
+    MAIL_PASSWORD = 'nfkpohordrnfnveq'    # Use an App Password for Gmail
+    MAIL_DEFAULT_SENDER = ('My Blog', 'techcheer1698@gmail.com')

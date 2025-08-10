@@ -24,3 +24,7 @@ you donot need to pass the variables manually in every route like below:
 @app.route('/')
 def home():
     return render_template('index.html', FB_URL=app.config['FB_URL'])
+
+
+*  pip install flask-mail   : for sending mail
+* for sending mail activate app password

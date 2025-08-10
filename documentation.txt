@@ -5,4 +5,4 @@ https://flask.palletsprojects.com/en/stable/quickstart/
 * pass name to about
 * creating migration table  (commands mention in python_info page)
 * completing contact module by first create migration and then create table
-
+*

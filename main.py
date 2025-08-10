@@ -4,12 +4,15 @@ from models.contact import Contact
 from flask_migrate import Migrate
 from config import Config
 from contact_form import *
+from flask_mail import Mail
 
 app = Flask(__name__)
 app.config.from_object(Config)
 @app.context_processor   #to access contact everywhere
 def inject_urls():
     return {key: app.config[key] for key in ['FB_URL', 'TW_URL', 'GT_URL']}
+
+mail = Mail(app)
 
 # Initialize db and migrations
 db.init_app(app)  #initialization
@@ -37,6 +40,7 @@ def contact():
         contact = Contact(name=name, mobile=mobile, email=email, msg=message)
         db.session.add(contact)
         db.session.commit()
+        mail.send_message('New message from '+name,sender=app.config['MAIL_DEFAULT_SENDER'],  recipients =[email],body=message+"\n"+mobile)
         flash("Thanks for contacting us!", "success")
         return redirect(url_for('contact'))
     return render_template('contact.html',form=form)

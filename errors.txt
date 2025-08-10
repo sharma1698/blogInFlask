@@ -48,3 +48,11 @@ Rename one of them so that there’s no name clash.
 Keep:
 Contact (model) → for DB operations
 ContactForm (form) → for form validation
+
+
+Error8: SMTPRecipientsRefused
+answer: means the mail server rejected the recipient’s email address. The email address only in angled brackets, with no name outside  eg: <john@example.com>
+When you see an error like SMTPRecipientsRefused combined with a message referencing the link "https://support.google.com/a/answer/3221692", it's pointing to an underlying issue with the SMTP transaction—most likely a format or syntax problem in your email headers.
+
+
+Error9: SMTPAuthenticationError
