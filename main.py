@@ -85,6 +85,7 @@ def login():
 
 # after login go to dashboard
 @app.route('/dashboard',methods = ["GET","POST"])
+@login_required
 def dashboard():
     if 'user' in session and session['user'] == app.config['ADMIN_USERNAME']:
         posts = Post.query.all()
@@ -95,6 +96,7 @@ def dashboard():
 
 @app.route('/post', methods=['GET', 'POST'], defaults={'id': None})
 @app.route('/post/<int:id>', methods=['GET', 'POST'])
+@login_required
 def edit_post(id):
     post = None
     form = EditPostForm()
@@ -202,11 +204,11 @@ def edit_post(id):
 #       return redirect(url_for('login'))
 
 
-@app.route('/update-post/<string:id>', methods=['GET','POST'])
-def updatePost(id):
-    if 'user' in session and session['user'] == app.config['ADMIN_USERNAME']:
-        posts = Post.query.all()
-        return render_template('editPost.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('login'))
 
 if __name__ == "__main__":
     app.run(debug=True)
