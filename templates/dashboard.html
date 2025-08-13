@@ -33,7 +33,9 @@
                         <td>{{post.title}}</td>
                         <td>
                             <a href="/post/{{post.id}}" target="_blank"><button class="btn btn-primary">Edit</button></a>
-                            <a href="/post/{{post.id}}" target="_blank"><button class="btn btn-primary">Delete</button></a>
+                           <form action="/post/{{ post.id }}/delete" method="POST" style="display:inline;">
+                                <button class="btn btn-primary" type="submit">Delete</button>
+                            </form>
                         </td>
                     </tr>
                     {% endfor %}

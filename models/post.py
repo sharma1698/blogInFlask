@@ -11,5 +11,6 @@ class Post(db.Model):
     date = db.Column(db.DateTime(timezone=True), nullable=False, server_default=func.now())
     img_file = db.Column(db.String(50),nullable=False)
     tag_line = db.Column(db.String(50),nullable=False)
+    deleted_at = db.Column(db.DateTime , nullable=True)
     created_at = db.Column(db.DateTime, nullable=False, server_default=func.now())
     updated_at = db.Column(db.DateTime, nullable=False, server_default=func.now(), onupdate=func.now())

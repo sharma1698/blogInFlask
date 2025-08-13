@@ -1,5 +1,4 @@
 from . import db  #The . means current package ,db refers to a variable or object defined in that package
-from datetime import datetime
 from sqlalchemy.sql import func
 
 class Contact(db.Model):

@@ -59,3 +59,5 @@ The dashboard route receives this new request, sees the session cookie, and corr
     -Removing Dangerous Characters
     -Preventing Path Traversa
     -Keeping the Filename:  My File (1).jpg would be converted to My_File_1.jpg.
+
+4. .is_(None): This is SQLAlchemy's specific syntax for generating the IS NULL condition in the SQL query. It correctly checks for a NULL value in the database.

@@ -12,6 +12,7 @@ from functools import wraps
 from sqlalchemy.exc import SQLAlchemyError
 from werkzeug.utils import secure_filename
 import os
+from datetime import datetime
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -88,7 +89,7 @@ def login():
 @login_required
 def dashboard():
     if 'user' in session and session['user'] == app.config['ADMIN_USERNAME']:
-        posts = Post.query.all()
+        posts = Post.query.filter(Post.deleted_at.is_(None)).all()
         return render_template('dashboard.html', posts=posts)
     else:
         return redirect(url_for('login'))
@@ -209,6 +210,21 @@ def edit_post(id):
 def logout():
     session.pop('user', None)
     return redirect(url_for('login'))
+
+
+@app.route('/post/<int:post_id>/delete', methods=['POST'])
+@login_required
+def soft_delete_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.deleted_at is None: # Only soft-delete if not already deleted
+        post.deleted_at = datetime.utcnow() # Mark as deleted with current timestamp
+        db.session.commit()
+        flash("Post moved to trash successfully!", "success")
+    else:
+        flash("Post is already soft-deleted.", "info")
+
+    return redirect(url_for('dashboard'))
+
 
 if __name__ == "__main__":
     app.run(debug=True)
