@@ -55,4 +55,14 @@ answer: means the mail server rejected the recipient’s email address. The emai
 When you see an error like SMTPRecipientsRefused combined with a message referencing the link "https://support.google.com/a/answer/3221692", it's pointing to an underlying issue with the SMTP transaction—most likely a format or syntax problem in your email headers.
 
 
-Error9: SMTPAuthenticationError
+Error9: filename = secure_filename(form.img_file.data.filename)
+AttributeError: 'str' object has no attribute 'filename'
+
+answer: you are trying to access .filename on the img_file.data field even when no file has been uploaded.
+  checked by this  : if hasattr(form.img_file.data, 'filename') and form.img_file.data.filename:
+
+
+Error10: TypeError: normalize() argument 2 must be str, not FileStorage
+Answer: The TypeError: normalize() argument 2 must be str, not FileStorage error means you're trying to pass a file object to a function that expects a string.
+   -This error typically happens when you try to use a function like secure_filename() on the FileField's data directly.
+   form.img_file.data.filename is the filename string. This is the text that the normalize() or secure_filename() function needs.

@@ -22,3 +22,4 @@ class Config:
     MAIL_DEFAULT_SENDER = ('My Blog', 'techcheer1698@gmail.com')
     ADMIN_USERNAME ='shweta'
     ADMIN_PASSWORD ='Shweta123'
+    UPLOAD_FOLDER = 'static/uploads'

@@ -33,7 +33,7 @@
                         </p>
 
                         <div class="my-5">
-                            <form method="POST">
+                            <form method="POST" enctype="multipart/form-data" action="{{ url_for('edit_post', id=post.id if post else None) }}">
                                  {{ form.hidden_tag() }}
                                 <div class="form-floating">
                                     {{form.title(id="title",class="form-control")}}
@@ -74,6 +74,15 @@
                                  <div class="form-floating">
                                     {{form.img_file(id="img_file",class="form-control")}}
                                     {{form.img_file.label(for="img_file")}}
+                                     {% if post and post.img_file %}
+                                        <div class="current-image-container">
+                                            <p>Current Image:</p>
+                                            <img src="{{ url_for('static', filename='uploads/' + post.img_file) }}" alt="Current Post Image"
+                                                style="max-width: 200px; height: auto;">
+                                            <br>
+                                            <small>To change, upload a new image below.</small>
+                                        </div>
+                                     {% endif %}
                                     {% if form.img_file.errors %}
                                      {% for error in form.img_file.errors %}
                                             <span style="color:red;">{{ error }}</span><br>

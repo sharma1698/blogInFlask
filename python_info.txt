@@ -53,3 +53,9 @@ The server sends a special HTTP response (a 302 Redirect) telling the browser: "
 The browser saves the session cookie from the redirect response.
 The browser immediately makes a new GET request to /dashboard, and sends the session cookie along with it.
 The dashboard route receives this new request, sees the session cookie, and correctly identifies the user as logged in.
+
+
+3. Use secure_filename() to clean the filename for security by removing potentially dangerous characters and preventing a user from uploading a file to an unintended location on your server.
+    -Removing Dangerous Characters
+    -Preventing Path Traversa
+    -Keeping the Filename:  My File (1).jpg would be converted to My_File_1.jpg.
