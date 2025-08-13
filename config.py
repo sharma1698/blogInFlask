@@ -20,3 +20,5 @@ class Config:
     MAIL_USERNAME = 'techcheer1698@gmail.com'   # Your Gmail address
     MAIL_PASSWORD = 'nfkpohordrnfnveq'    # Use an App Password for Gmail
     MAIL_DEFAULT_SENDER = ('My Blog', 'techcheer1698@gmail.com')
+    ADMIN_USERNAME ='shweta'
+    ADMIN_PASSWORD ='Shweta123'

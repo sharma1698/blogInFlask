@@ -1,0 +1,92 @@
+{% extends 'layout.html' %}
+{% block content %}
+        <!-- Page Header-->
+              <header class="masthead" style="background-image: url('{{url_for('static',filename='assets/img/contact-bg.jpg')}}')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="page-heading">
+                            <h1>Add/Edit Post</h1>
+                            <span class="subheading">Have questions? I have answers.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Main Content-->
+        <main class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="back-button-container">
+                           <a href="/dashboard" >Go Back</a>
+                        </div>
+                        <p>Want to get in touch? Fill out the form below to send me a message and I will get back to you as soon as possible!</p>
+                        <p>
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                    {% for message in messages %}
+                                         <span style="color:red;">{{ message }}</span><br>
+                                    {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                        </p>
+
+                        <div class="my-5">
+                            <form method="POST">
+                                 {{ form.hidden_tag() }}
+                                <div class="form-floating">
+                                    {{form.title(id="title",class="form-control")}}
+                                    {{form.title.label(for="title")}}
+                                    {% if form.title.errors %}
+                                    {% for error in form.title.errors %}
+                                            <span style="color:red;">{{ error }}</span><br>
+                                     {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div class="form-floating">
+                                    {{form.tag_line(id="tag_line",class="form-control")}}
+                                    {{form.tag_line.label(for="tag_line")}}
+                                    {% if form.tag_line.errors %}
+                                    {% for error in form.tag_line.errors %}
+                                            <span style="color:red;">{{ error }}</span><br>
+                                     {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div class="form-floating">
+                                    {{form.content(id="content",class="form-control", style="height: 200px;")}}
+                                    {{form.content.label(for="content")}}
+                                    {% if form.content.errors %}
+                                    {% for error in form.content.errors %}
+                                            <span style="color:red;">{{ error }}</span><br>
+                                     {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div class="form-floating">
+                                    {{form.slug(id="slug",class="form-control")}}
+                                    {{form.slug.label(for="slug")}}
+                                    {% if form.slug.errors %}
+                                     {% for error in form.slug.errors %}
+                                            <span style="color:red;">{{ error }}</span><br>
+                                     {% endfor %}
+                                    {% endif %}
+                                </div>
+                                 <div class="form-floating">
+                                    {{form.img_file(id="img_file",class="form-control")}}
+                                    {{form.img_file.label(for="img_file")}}
+                                    {% if form.img_file.errors %}
+                                     {% for error in form.img_file.errors %}
+                                            <span style="color:red;">{{ error }}</span><br>
+                                     {% endfor %}
+                                     {% endif %}
+                                </div>
+                                <br/>
+                                <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Send</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+{% endblock %}
