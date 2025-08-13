@@ -29,8 +29,17 @@ migrate = Migrate(app, db)
 
 @app.route('/')
 def home():
-    posts=Post.query.order_by(Post.date.desc()).limit(2).all()
-    return render_template('index.html', posts=posts)
+    # Get the current page number from the URL (default to 1)
+    # The 'type=int' ensures it's a safe integer
+    page = request.args.get('page', 1, type=int)
+
+    # Use paginate() to get a Pagination object
+    # per_page: how many items to show on each page
+    # error_out: when you use error_out=False, It prevents a 404 Not Found error and instead returns an empty pagination object.
+    # When you enter page=4.7, Flask's request.args.get() tries to convert the string "4.7" to an integer. This conversion fails because "4.7" is not a valid integer. Because the conversion fails, the get() method falls back to its default value, which is 1.
+
+    pagination = Post.query.order_by(Post.date.desc()).paginate(page=page, per_page=2, error_out=True)
+    return render_template('index.html', pagination=pagination)
 
 
 @app.route('/about')
