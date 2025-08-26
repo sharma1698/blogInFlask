@@ -17,3 +17,16 @@ how allow it :
 The server hosting the resource must send special headers, e.g.:
 Access-Control-Allow-Origin: https://yourwebsite.com
 “Yes, I trust this origin to read my data.”
+
+
+3.Both startcodewithme.site and its alternate name are improperly configured
+Domain does not resolve to the GitHub Pages server. For more information, see documentation (NotServedByPagesError).
+Answer: The core problem remains that your DNS records are not pointing to GitHub Pages.
+ If you're hosting a static website using GitHub Pages, you simply need to configure your domain's DNS to point to the four specific IP addresses used for that service.
+
+
+
+
+
+
+
