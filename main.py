@@ -27,10 +27,6 @@ mail = Mail(app)
 db.init_app(app)  #initialization
 migrate = Migrate(app, db)
 
-# --- CRITICAL: Create tables within the application context ---
-with app.app_context():
-    db.create_all()
-
 @app.route('/')
 def home():
     # Get the current page number from the URL (default to 1)
