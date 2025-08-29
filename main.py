@@ -16,6 +16,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 app.config.from_object(Config)
+
 @app.context_processor   #to access contact everywhere
 def inject_urls():
     return {key: app.config[key] for key in ['FB_URL', 'TW_URL', 'GT_URL','ADMIN_USERNAME','ADMIN_PASSWORD','UPLOAD_FOLDER']}
@@ -26,6 +27,9 @@ mail = Mail(app)
 db.init_app(app)  #initialization
 migrate = Migrate(app, db)
 
+# --- CRITICAL: Create tables within the application context ---
+with app.app_context():
+    db.create_all()
 
 @app.route('/')
 def home():

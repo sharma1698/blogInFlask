@@ -6,8 +6,11 @@ local_server = True
 class Config:
     SECRET_KEY = os.urandom(24)  # Generates a random secret key
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    db_host = os.getenv("DB_HOST", "localhost")  # defaults to localhost if not set
     if local_server:
-        SQLALCHEMY_DATABASE_URI = 'mysql://root:root@localhost/flask_blog'
+         SQLALCHEMY_DATABASE_URI = "mysql+mysqldb://root:root@db:3306/flask_blog"  #using docker
+        # SQLALCHEMY_DATABASE_URI = 'mysql://root:root@localhost/flask_blog'   # without docker
+        # SQLALCHEMY_DATABASE_URI = f"mysql+mysqldb://root:root@{db_host}:3306/flask_blog"
     else:
         SQLALCHEMY_DATABASE_URI = 'mysql://user:password@prod-server/flask_blog'
     FB_URL = 'https://www.facebook.com/'
