@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Error</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        h1 { color: #dc3545; }
+        p { color: #6c757d; }
+        .error-details { background-color: #f8d7da; border: 1px solid #f5c6cb; padding: 15px; margin: 20px auto; max-width: 600px; text-align: left; }
+    </style>
+</head>
+<body>
+    <h1>Oops! Something went wrong.</h1>
+    <p>We apologize for the inconvenience. Our server encountered an internal error.</p>
+    <p>Please try again later.</p>
+    {% if error_message %}
+        <div class="error-details">
+            <strong>Error Details (for debugging):</strong>
+            <pre>{{ error_message }}</pre>
+        </div>
+    {% endif %}
+    <a href="{{ url_for('home') }}">Go to Home</a>
+</body>
+</html>

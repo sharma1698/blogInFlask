@@ -27,6 +27,22 @@ mail = Mail(app)
 db.init_app(app)  #initialization
 migrate = Migrate(app, db)
 
+# --- Error Handling ---
+@app.errorhandler(500)
+def internal_server_error(e):
+    # This handler will catch all unhandled exceptions (which result in 500)
+    # You can log the error details for debugging
+    app.logger.error(f'Server Error: {e}')
+    # Render a user-friendly error page
+    return render_template('500.html', error_message=e), 500
+
+@app.errorhandler(404)
+def page_not_found(e):
+    app.logger.error(f'Page Not Found: {e}')
+    return render_template('404.html'), 404
+
+
+# --- Flask Routes ---
 @app.route('/')
 def home():
     # Get the current page number from the URL (default to 1)
