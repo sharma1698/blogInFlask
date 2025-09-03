@@ -4,16 +4,18 @@ services:
   web:
     build: .
     container_name: blog
+    volumes:
+      - .:/home/app # This mounts your local directory to the container's working directory
     ports:
       - "5000:5000"
     depends_on:
-      - db  # Ensure the database service starts before the web app
+      db:
+          condition: service_healthy # Ensure the database service starts before the web app
     environment:
       # Pass database connection details as environment variables to the web app
       # The hostname 'db' is automatically resolved by Docker Compose's network
       # DATABASE_URL: mysql://root:root@db:3306/flask_blog
-      DATABASE_URL: mysql+mysqldb://root:root@db:3306/flask_blog
-
+        DATABASE_URL: mysql+mysqldb://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE}
 
    # The database service
   db:
@@ -21,12 +23,17 @@ services:
     container_name: mysql
     restart: always
     environment:
-      MYSQL_DATABASE: flask_blog
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
       # MYSQL_USER: root
       # MYSQL_PASSWORD: root   #this id for the normal user not for root user
-      MYSQL_ROOT_PASSWORD: root # IMPORTANT: Set a strong root password
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD} # IMPORTANT: Set a strong root password
     volumes:
       - mysql_data:/var/lib/mysql # Persist MySQL data to a named volume
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 # Define a named volume for data persistence
 volumes:

@@ -40,6 +40,10 @@ COPY --from=builder /usr/local/bin /usr/local/bin
 # Copy your application code
 COPY . .
 
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
 ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/:$LD_LIBRARY_PATH
 
 # Expose the port Flask runs on (default is 5000)
@@ -49,7 +53,6 @@ ENV FLASK_APP=main.py
 
 # Set Flask to production mode
 ENV FLASK_ENV=production
-
 
 # Use a production WSGI server (Gunicorn) to run the application
 # This is much more robust than the built-in Flask server.
